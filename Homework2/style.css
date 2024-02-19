@@ -1,0 +1,56 @@
+.slider{
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+.slider__button{
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.5s ease;
+    border-radius: 0 3px 3px 0;
+    opacity: 1;
+}
+
+.slider__button:hover{
+    background-color: rgba(178, 216, 239, 0.5);
+}
+
+.right-btn{
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.dots{
+    text-align: center;
+}
+
+.dot{
+    cursor: pointer;
+    height: 13px;
+    width: 13px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.5s ease;
+}
+
+.active, .dot:hover{
+    background-color: #717171;
+}
+
+.slides{
+    display: none;
+}
+
+.view{
+    display: block;
+}
