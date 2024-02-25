@@ -14,18 +14,17 @@
 
 // Добавьте стилизацию для слайдера и элементов интерфейса с использованием CSS для улучшения внешнего вида.
 
-const initialData = [
-    "./img/slide1.jpg",
-    "./img/slide2.jpg",
-    "./img/slide3.jpg",
-];
+const initData = ["./img/slide1.jpg", "./img/slide2.jpg", "./img/slide3.jpg"];
 
-if (initialData.length === 0) {
+if (initData.length === 0) {
     document.body.textContent = "Не загрузились фото с сервера";
 } else {
+    createSlider(initData);
+}
+
+function createSlider(initialData) {
     const sliderBoxEl = document.querySelector(".slider");
     const sliderDotsEl = document.querySelector(".dots");
-    let slideIndex = 1;
 
     initialData.forEach((slide) => {
         sliderBoxEl.insertAdjacentHTML(
@@ -39,16 +38,16 @@ if (initialData.length === 0) {
 
         sliderDotsEl.insertAdjacentHTML(
             "beforeend",
-            `<span class="dot" id="${slideIndex++}"></span>`
+            `<span class="dot" data-id="${initialData.indexOf(slide)}"></span>`
         );
     });
 
     const slides = document.querySelectorAll(".slides");
     const dots = document.querySelectorAll(".dot");
 
-    slideIndex = 1;
-    slides[slideIndex - 1].classList.add("view");
-    dots[slideIndex - 1].classList.add("active");
+    let slideIndex = 0;
+    slides[slideIndex].classList.add("view");
+    dots[slideIndex].classList.add("active");
 
     sliderBoxEl.addEventListener("click", function ({ target }) {
         if (target.matches(".right-btn")) {
@@ -67,20 +66,20 @@ if (initialData.length === 0) {
                     slides[i].classList.remove("view");
                     dots[i].classList.remove("active");
                 }
-                slideIndex = target.id;
-                slides[slideIndex - 1].classList.add("view");
+                slideIndex = target.dataset.id;
+                slides[slideIndex].classList.add("view");
                 target.classList.add("active");
             }
         }
     });
 
     function changeSlide(numberSlide) {
-        if (numberSlide > initialData.length) {
-            numberSlide = 1;
+        if (numberSlide > initialData.length - 1) {
+            numberSlide = 0;
         }
 
-        if (numberSlide < 1) {
-            numberSlide = slides.length;
+        if (numberSlide < 0) {
+            numberSlide = slides.length - 1;
         }
 
         for (let i = 0; i < slides.length; i++) {
@@ -88,8 +87,8 @@ if (initialData.length === 0) {
             dots[i].classList.remove("active");
         }
 
-        slides[numberSlide - 1].classList.add("view");
-        dots[numberSlide - 1].classList.add("active");
+        slides[numberSlide].classList.add("view");
+        dots[numberSlide].classList.add("active");
 
         return numberSlide;
     }
